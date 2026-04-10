@@ -10,7 +10,8 @@ services:
     depends_on:
       - django_app
     networks:
-      - notes-app-n
+      - notes-app-nw 
+      
   django_app:
     build:
       context: .
