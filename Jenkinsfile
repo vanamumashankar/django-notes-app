@@ -33,6 +33,7 @@ pipeline{
                 End()
                 echo "Testing with trigger"
                 echo "for CICD"
+                echo "testing"
             }
         }
     }}
