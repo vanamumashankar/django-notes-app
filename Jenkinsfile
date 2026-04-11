@@ -31,6 +31,7 @@ pipeline{
         stage("Deploy"){
             steps{
                 End()
+                echo "Testing with trigger"
             }
         }
     }}
