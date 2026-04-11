@@ -1,29 +1,36 @@
-@Library('Shared')_
+@Library('myshared') _
 pipeline{
-    agent { label 'dev-server'}
-    
+    agent any
     stages{
+        stage("Started"){
+            steps{
+                echo "started the CICD"
+            }
+        }    
         stage("Code clone"){
             steps{
                 sh "whoami"
-            clone("https://github.com/LondheShubham153/django-notes-app.git","main")
+            github_clone("https://github.com/LondheShubham153/django-notes-app.git","main")
+            }
+        }
+     stage("docker login"){
+            steps{
+            Docker_Login("dockerHubCred")
             }
         }
         stage("Code Build"){
             steps{
-            dockerbuild("notes-app","latest")
+            builds("dockerHubCred", "notes")
             }
         }
         stage("Push to DockerHub"){
             steps{
-                dockerpush("dockerHubCreds","notes-app","latest")
+                push("dockerHubCred","notes","latest")
             }
         }
         stage("Deploy"){
             steps{
-                deploy()
+                End()
             }
         }
-        
-    }
-
+    }}
